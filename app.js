@@ -1,16 +1,10 @@
+const routes = require('./routes');
 const express = require('express');
 const app = express(); // creates an instance of an express application
 const nunjucks = require('nunjucks')
-const modules = require('./routes')
-// let news = ''
-var locals = {
-    title: 'An Example',
-    people: [
-        { name: 'Gandalf'},
-        { name: 'Frodo' },
-        { name: 'Hermione'}
-    ]
-};
+
+app.use('/', routes);
+
 
 nunjucks.configure('views', {noCache: true});
 // nunjucks.render('index.html', locals, function (err, output) {
@@ -36,10 +30,12 @@ app.get('/', function(req, res) {
     res.render( 'index', {title: 'Hall of Fame', people: people} );
 })
 
-app.get('/news', function(req, res) {
-    res.send('this is news')
+app.get('/stylesheets/style.css', function(req, res) {
+    res.sendFile('/public/stylesheets/style.css')
 })
 
 app.listen(3000, function() {
     console.log('ex 3000')
 })
+
+
